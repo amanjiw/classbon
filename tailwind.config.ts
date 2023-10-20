@@ -58,8 +58,16 @@ const config: Config = {
 	darkMode: "class",
 	theme: {
 		colors: tailwindColors,
-		extend: {},
+		extend: {
+			backgroundImage: {
+				"hero-pattern": "url('/images/tile.svg')",
+			},
+		},
+		container: {
+			center: true,
+		},
 	},
+
 	plugins: [],
 };
 export default config;

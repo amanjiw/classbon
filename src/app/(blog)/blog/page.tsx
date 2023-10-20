@@ -1,7 +1,7 @@
 import React from "react";
 
 const page = async () => {
-	return <div className="w-screen h-screen bg-sky-400"></div>;
+	return <div className="">Blog</div>;
 };
 
 export default page;
