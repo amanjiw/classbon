@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Button from "./_components/button/Button";
 
 export default function Home() {
 	return (
@@ -17,6 +18,14 @@ export default function Home() {
 							های باتجربه کلاسبن میتونی بدون محدودیت به قله های
 							بالاتر صعود کنی. ما همیشه هواتو داریم.
 						</p>
+						<div className="mt-5 flex gap-4 mb-3">
+							<Button variant="primary" size="large">
+								دوره های ریکت و نکست
+							</Button>
+							<Button variant="neutral" size="large">
+								مشاوره برنامه‌نویسی
+							</Button>
+						</div>
 						<Image
 							className="grayscale mt-4 opacity-70 m-auto xl:m-0"
 							src="/images/frameworks.png"
@@ -25,6 +34,7 @@ export default function Home() {
 							alt=""
 						/>
 					</div>
+
 					<Image
 						className=""
 						src="/images/programmer-landing.svg"
