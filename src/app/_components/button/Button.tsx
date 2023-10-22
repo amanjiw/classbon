@@ -36,13 +36,13 @@ const Button: React.FC<ButtonProps> = async ({
 	const classes = classNames(
 		"btn",
 		className,
-		{ "btn-outline": isOutline },
-		{ "btn-link": isLink },
-		{ "animated-icon": animatedIcon },
-		{ "pointer-events-none opacity-80": isLoading },
 		{ [`btn-${variant}`]: variant },
 		{ [`${sizeClasses[size]}`]: size },
-		{ [`${shapeClasses[shape]}`]: shape }
+		{ "btn-outline": isOutline },
+		{ "btn-link": isLink },
+		{ [`${shapeClasses[shape]}`]: shape },
+		{ "animated-icon": animatedIcon },
+		{ "pointer-events-none opacity-80": isLoading }
 	);
 
 	return (
