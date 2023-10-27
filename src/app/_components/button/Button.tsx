@@ -17,7 +17,7 @@ const shapeClasses: Record<ButtonShape, string> = {
 	square: "btn-square",
 };
 
-const Button: React.FC<ButtonProps> = async ({
+const Button: React.FC<ButtonProps> = ({
 	variant,
 	size = "normal",
 	isDisabled = false,

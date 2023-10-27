@@ -70,6 +70,7 @@
 			}
 		}
 	}
+
 	&-error {
 		@apply dark:border-error dark:bg-error dark:text-base-100 dark:outline-error;
 		@media (hover: hover) {
@@ -81,26 +82,26 @@
 
 	/* btn variants */
 	&-ghost {
-		@apply border dark:border-transparent dark:bg-transparent text-current dark:outline-current;
+		@apply dark:border dark:border-transparent dark:bg-transparent dark:text-current  dark:outline-current;
 		@media (hover: hover) {
 			&:hover {
-				@apply border-opacity-0 dark:bg-base-content bg-opacity-20;
+				@apply dark:border-opacity-0 dark:bg-base-content dark:bg-opacity-20;
 			}
 		}
 	}
 
 	&-link {
-		@apply dark:border-transparent dark:bg-transparent dark:text-primary outline-none h-auto px-1;
+		@apply dark:border-transparent dark:bg-transparent dark:text-primary   dark:outline-none h-auto px-1;
 		@media (hover: hover) {
 			&:hover {
-				@apply border-transparent bg-transparent underline;
+				@apply dark:border-transparent dark:bg-transparent dark:underline;
 			}
 		}
 	}
 
 	/* outline */
 	&-outline {
-		@apply border-current dark:bg-transparent dark:text-base-content;
+		@apply dark:border-current dark:bg-transparent dark:text-base-content;
 		@media (hover: hover) {
 			&:hover {
 				@apply border-base-content bg-base-content text-base-100;
@@ -167,12 +168,12 @@
 	/* disabled */
 	&[disabled],
 	&:disabled {
-		@apply pointer-events-none border-opacity-0 dark:bg-neutral bg-opacity-20 dark:text-base-content text-opacity-20;
+		@apply pointer-events-none border-opacity-0 dark:bg-neutral dark:bg-opacity-20 dark:text-base-content dark:text-opacity-20;
 	}
 	@media (hover: hover) {
 		&[disabled]:hover,
 		&:disabled:hover {
-			@apply border-opacity-0 dark:bg-neutral bg-opacity-20 dark:text-base-content text-opacity-20;
+			@apply border-opacity-0 dark:bg-neutral dark:bg-opacity-20 dark:text-base-content dark:text-opacity-20;
 		}
 	}
 
@@ -200,15 +201,15 @@
 		@apply w-full;
 	}
 	&-square {
+		@apply h-12 w-12 p-0;
+
 		&:where(.btn-xs) {
 			@apply h-6 w-6 p-0;
 		}
 		&:where(.btn-sm) {
 			@apply h-8 w-8 p-0;
 		}
-		&:where(.btn-md) {
-			@apply h-12 w-12 p-0;
-		}
+
 		&:where(.btn-lg) {
 			@apply h-16 w-16 p-0;
 		}
