@@ -1,5 +1,6 @@
 import { CourseSummary } from "@/types/course-summary.interface";
 import HomeHeroSection from "./_components/home-hero-section/HomeHeroSection";
+import CourseCardList from "./(courses)/_components/CourseCardList";
 
 const getNewestCourses = async (count: number): Promise<CourseSummary[]> => {
 	const res = await fetch(
@@ -17,6 +18,15 @@ export default async function Home() {
 	return (
 		<>
 			<HomeHeroSection />
+			<section className="container pt-20">
+				<div className="text-center xl:text-right">
+					<h2 className="text-2xl font-extrabold">
+						تازه ترین دوره های آموزشی
+					</h2>
+					<p>برای به روز موندن یادگرفتن نکته های تازه ضروریه!</p>
+				</div>
+				<CourseCardList courses={newestCourses} />
+			</section>
 		</>
 	);
 }
