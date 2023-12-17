@@ -15,9 +15,9 @@
 	"dependencies": {
 		"classnames": "^2.3.2",
 		"colord": "^2.9.3",
-		"next": "13.5.4",
-		"react": "^18",
-		"react-dom": "^18"
+		"next": "^14.0.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@storybook/addon-essentials": "^7.5.1",
@@ -26,7 +26,7 @@
 		"@storybook/addon-links": "^7.5.1",
 		"@storybook/addon-onboarding": "^1.0.8",
 		"@storybook/blocks": "^7.5.1",
-		"@storybook/nextjs": "^7.5.1",
+		"@storybook/nextjs": "^7.6.5",
 		"@storybook/react": "^7.5.1",
 		"@storybook/testing-library": "^0.2.2",
 		"@testing-library/jest-dom": "^5.16.5",
@@ -37,7 +37,7 @@
 		"@types/react-dom": "^18",
 		"autoprefixer": "^10",
 		"eslint": "^8",
-		"eslint-config-next": "13.5.4",
+		"eslint-config-next": "^14.0.4",
 		"eslint-plugin-storybook": "^0.6.15",
 		"gulp": "^4.0.2",
 		"gulp-rename": "^2.0.0",
