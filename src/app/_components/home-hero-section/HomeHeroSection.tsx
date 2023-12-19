@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Button from "../button/Button";
+import { IconArrowLeftFill } from "../icons/icons";
 
 const HomeHeroSection: React.FC = () => {
 	return (
@@ -18,9 +19,10 @@ const HomeHeroSection: React.FC = () => {
 						باتجربه کلاسبن میتونی بدون محدودیت به قله های بالاتر
 						صعود کنی. ما همیشه هواتو داریم.
 					</p>
-					<div className="mt-5 flex gap-4 mb-3">
+					<div className="mt-5 flex gap-4 mb-3 justify-center xl:justify-start ">
 						<Button variant="primary" size="large">
 							دوره های ریکت و نکست
+							<IconArrowLeftFill fill="currentColor" />
 						</Button>
 						<Button variant="neutral" size="large">
 							مشاوره برنامه‌نویسی
