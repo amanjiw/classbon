@@ -7,28 +7,19 @@ import Button from "./_components/button/Button";
 import { IconArrowLeftFill } from "./_components/icons/icons";
 import { BlogPostSummery } from "@/types/blog-post-summery.interface";
 import { API_URL } from "@/configs/public";
+import { Suspense } from "react";
+import CardPlaseholder from "./_components/placeholders/card/CardPlaceholder";
 
-const getNewestCourses = async (count: number): Promise<CourseSummary[]> => {
-	const res = await fetch(`${API_URL}/courses/newest/${count}`, {
-		next: { revalidate: 24 * 60 * 60 },
-	});
-	return res.json();
-};
 const getNewestPosts = async (count: number): Promise<BlogPostSummery[]> => {
 	const res = await fetch(`${API_URL}/blog/newest/${count}`, {
-		next: { revalidate: 24 * 60 * 60 },
+		cache: "no-cache",
 	});
 	return res.json();
 };
 
 export default async function Home() {
-	const newestCoursesData = getNewestCourses(4);
 	const newestBlogPostsData = getNewestPosts(4);
-
-	const [newestCourses, newestBlogPosts] = await Promise.all([
-		newestCoursesData,
-		newestBlogPostsData,
-	]);
+	const [newestBlogPosts] = await Promise.all([newestBlogPostsData]);
 
 	console.log(newestBlogPosts);
 
@@ -52,7 +43,11 @@ export default async function Home() {
 					</h2>
 					<p>برای به روز موندن یادگرفتن نکته های تازه ضروریه!</p>
 				</div>
-				<CourseCardList courses={newestCourses} />
+				<Suspense
+					fallback={<CardPlaseholder count={4} className="mt-5" />}
+				>
+					<CourseCardList courses={[]} />
+				</Suspense>
 			</section>
 			<section className="px-2 my-40">
 				{/* <div className="sticky top-0 pt-0 text-center"> */}
