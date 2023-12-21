@@ -6,23 +6,18 @@ import Feature from "./_components/feature/Feature";
 import Button from "./_components/button/Button";
 import { IconArrowLeftFill } from "./_components/icons/icons";
 import { BlogPostSummery } from "@/types/blog-post-summery.interface";
+import { API_URL } from "@/configs/public";
 
 const getNewestCourses = async (count: number): Promise<CourseSummary[]> => {
-	const res = await fetch(
-		`https://api.classbon.com/api/courses/newest/${count}`,
-		{
-			next: { revalidate: 24 * 60 * 60 },
-		}
-	);
+	const res = await fetch(`${API_URL}/courses/newest/${count}`, {
+		next: { revalidate: 24 * 60 * 60 },
+	});
 	return res.json();
 };
 const getNewestPosts = async (count: number): Promise<BlogPostSummery[]> => {
-	const res = await fetch(
-		`https://api.classbon.com/api/blog/newest/${count}`,
-		{
-			next: { revalidate: 24 * 60 * 60 },
-		}
-	);
+	const res = await fetch(`${API_URL}/blog/newest/${count}`, {
+		next: { revalidate: 24 * 60 * 60 },
+	});
 	return res.json();
 };
 
@@ -35,7 +30,7 @@ export default async function Home() {
 		newestBlogPostsData,
 	]);
 
-    console.log(newestBlogPosts)
+	console.log(newestBlogPosts);
 
 	return (
 		<>
