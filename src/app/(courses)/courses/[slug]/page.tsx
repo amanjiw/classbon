@@ -1,3 +1,4 @@
+import Rating from "@/app/_components/rating/Rating";
 import { API_URL } from "@/configs/public";
 import { CourseDetails } from "@/types/course-details.interface";
 import React from "react";
@@ -35,7 +36,9 @@ const CourseDetails = async ({ params }: { params: { slug: string } }) => {
 				</h2>
 				<div className="mt-5">VPC</div>
 			</div>
-			<div className="col-span-10 xl:col-span-3 bg-secondary"></div>
+			<div className="col-span-10 xl:col-span-3 ">
+				<Rating rate={4} />
+			</div>
 			<div className="col-span-10 xl:col-span-6 bg-info"></div>
 			<div className="col-span-10 xl:col-span-4 bg-warning"></div>
 		</div>
