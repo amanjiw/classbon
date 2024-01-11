@@ -3,6 +3,8 @@ import Progress from "@/app/_components/progress/Progress";
 import Rating from "@/app/_components/rating/Rating";
 import Tabs from "@/app/_components/tabs/Tabs";
 import { API_URL } from "@/configs/public";
+import { Accordion } from "@/app/_components/accordian";
+import { Accordion as AccordionType } from "@/types/accordion.type";
 import { CourseDetails } from "@/types/course-details.interface";
 import { Tab } from "@/types/tab.type";
 import React from "react";
@@ -26,12 +28,18 @@ const CourseDetails = async ({ params }: { params: { slug: string } }) => {
 	const { slug } = params;
 
 	const course = await getCourse(slug);
-	console.log(course);
+	const faqs: AccordionType[] = course.frequentlyAskedQuestions.map(
+		(faq) => ({
+			id: faq.id,
+			title: faq.question,
+			content: faq.answer,
+		})
+	);
 
 	const tabs: Tab[] = [
 		{ label: "مشخصات دوره", content: course.description },
 		{ label: "دیدگاه ها و پرسش", content: "course comments" },
-		{ label: "سوالات متداول", content: " accordion components" },
+		{ label: "سوالات متداول", content: <Accordion data={faqs} /> },
 	];
 
 	return (
