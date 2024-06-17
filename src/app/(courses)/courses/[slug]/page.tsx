@@ -2,12 +2,13 @@ import CourseAside from "@/app/(blog)/blog/[slug]/_components/CourseAside";
 import Progress from "@/app/_components/progress/Progress";
 import Rating from "@/app/_components/rating/Rating";
 import Tabs from "@/app/_components/tabs/Tabs";
-import { API_URL } from "@/configs/public";
+import { API_URL } from "@/configs/global";
 import { Accordion } from "@/app/_components/accordian";
 import { Accordion as AccordionType } from "@/types/accordion.type";
-import { CourseDetails } from "@/types/course-details.interface";
+import { CourseDetails as CourseDetailsInterface } from "@/types/course-details.interface";
 import { Tab } from "@/types/tab.type";
 import React from "react";
+import CourseComments from "./_components/comments/course-comments";
 
 export const getStaticParams = async () => {
 	const slugs = await fetch(`${API_URL}/courses/slugs`).then((res) => {
@@ -15,11 +16,11 @@ export const getStaticParams = async () => {
 	});
 
 	return (slugs as unknown as string[]).map((slug) => {
-		slug: slug;
+		slug;
 	});
 };
 
-const getCourse = async (slug: string): Promise<CourseDetails> => {
+const getCourse = async (slug: string): Promise<CourseDetailsInterface> => {
 	const res = await fetch(`${API_URL}/courses/${slug}`);
 	return res.json();
 };
@@ -38,7 +39,7 @@ const CourseDetails = async ({ params }: { params: { slug: string } }) => {
 
 	const tabs: Tab[] = [
 		{ label: "مشخصات دوره", content: course.description },
-		{ label: "دیدگاه ها و پرسش", content: "course comments" },
+		{ label: "دیدگاه ها و پرسش", content: <CourseComments /> },
 		{ label: "سوالات متداول", content: <Accordion data={faqs} /> },
 	];
 

@@ -15,7 +15,7 @@ import {
 import Avatar from "@/app/_components/avatar/Avatar";
 import Button from "@/app/_components/button/Button";
 import Progress from "@/app/_components/progress/Progress";
-import { API_URL } from "@/configs/public";
+import { API_URL } from "@/configs/global";
 import { CourseLevel } from "@/enums/course-level.enum";
 import { Variant } from "@/app/_components/types/variant.type";
 
