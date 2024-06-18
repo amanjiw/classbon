@@ -1,7 +1,7 @@
 import { CourseSummary } from "@/types/course-summary.interface";
 import React from "react";
 import CourseCard from "./CourseCard";
-import { API_URL } from "@/configs/public";
+import { API_URL } from "@/configs/global";
 
 type CourseCardListProps = {
 	courses: CourseSummary[];

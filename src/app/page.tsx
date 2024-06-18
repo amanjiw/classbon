@@ -6,7 +6,7 @@ import Feature from "./_components/feature/Feature";
 import Button from "./_components/button/Button";
 import { IconArrowLeftFill } from "./_components/icons/icons";
 import { BlogPostSummery } from "@/types/blog-post-summery.interface";
-import { API_URL } from "@/configs/public";
+import { API_URL } from "@/configs/global";
 import { Suspense } from "react";
 import CardPlaseholder from "./_components/placeholders/card/CardPlaceholder";
 import { BlogPostCardList } from "./(blog)/_components/blog-post-card-list";
