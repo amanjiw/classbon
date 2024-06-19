@@ -10,7 +10,7 @@ const Colors: React.FC = () => {
 	return (
 		<div className="flex flex-wrap justify-center" dir="ltr">
 			{Object.entries(tailwindColors).map(([name, color]) => (
-				<ColorBox name={name} color={color} />
+				<ColorBox name={name} color={color} key={name + color} />
 			))}
 		</div>
 	);
