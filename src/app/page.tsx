@@ -24,7 +24,6 @@ export default async function Home() {
 	const newestBlogPostsData = getNewestPosts(4);
 	const [newestBlogPosts] = await Promise.all([newestBlogPostsData]);
 
-	console.log(newestBlogPosts);
 
 	return (
 		<>
