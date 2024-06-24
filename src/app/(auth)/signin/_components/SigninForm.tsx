@@ -1,12 +1,12 @@
 "use client";
 
 import Button from "@/app/_components/button/Button";
-import Textbox from "@/app/_components/textbox/Textbox";
 import { useForm } from "react-hook-form";
 import { Signin } from "../types/signin.types";
 import TextInput from "@/app/_components/form-input/text-input/TextInput";
 import { useSignin } from "../_api/signin";
 import { useRouter } from "next/navigation";
+import { useNotificationStore } from "@/stores/notification-store";
 
 const SignInForm = () => {
 	const {
@@ -17,10 +17,14 @@ const SignInForm = () => {
 	} = useForm<Signin>();
 
 	const router = useRouter();
+	const showNotification = useNotificationStore(
+		(state) => state.showNotification
+	);
 
 	const signin = useSignin({
 		onSuccess: () => {
 			router.push(`/verify?mobile=${getValues("mobile")}`);
+			showNotification({ message: "کد ارسال شد.", type: "info" });
 		},
 	});
 
