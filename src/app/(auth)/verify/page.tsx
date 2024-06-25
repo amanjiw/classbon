@@ -1,7 +1,13 @@
 import React from "react";
+import VerificationForm from "./_components/VerificationForm";
 
 const Verify = () => {
-	return <div>Verify Page</div>;
+	return (
+		<div>
+			{" "}
+			<VerificationForm />{" "}
+		</div>
+	);
 };
 
 export default Verify;

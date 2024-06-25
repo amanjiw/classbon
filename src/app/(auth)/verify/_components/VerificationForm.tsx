@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Button from "@/app/_components/button/Button";
+import AuthCode from "@/app/_components/auth-code/AuthCode";
 
 const VerificationForm = () => {
 	return (
@@ -9,7 +12,12 @@ const VerificationForm = () => {
 				دنیای شگفت انگیز برنامه نویسی در انتظار شماست!
 			</p>
 			<form className="flex flex-col gap-6 mt-10 flex-1">
-				<p>Auth code</p>
+				<AuthCode
+					className="mt-10"
+					onChange={(value) => {
+						console.log(value);
+					}}
+				/>
 				Timer
 				<Button isLink={true}>ارسال مجدد کد تایید</Button>
 				<Button type="submit" variant="primary">
