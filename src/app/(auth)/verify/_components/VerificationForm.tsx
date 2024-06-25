@@ -24,7 +24,7 @@ const VerificationForm = () => {
 					}}
 				/>
 				Timer
-				<Button isLink={true} onClick={authCodeRef.current?.clear}>
+				<Button isLink={true} onClick={authCodeRef.current?.focus}>
 					ارسال مجدد کد تایید
 				</Button>
 				<Button type="submit" variant="primary">
