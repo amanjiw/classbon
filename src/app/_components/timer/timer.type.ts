@@ -18,7 +18,7 @@ export type TimerProps = VariantWithGradient & {
 	showTitle?: boolean;
 	showDays?: boolean;
 	showHours?: boolean;
-	onExpire: () => void;
+	onExpire?: () => void;
 };
 
 export type TimerProgressProps = VariantWithGradient & {

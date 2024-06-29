@@ -7,6 +7,8 @@ import TextInput from "@/app/_components/form-input/text-input/TextInput";
 import { useSignin } from "../_api/signin";
 import { useRouter } from "next/navigation";
 import { useNotificationStore } from "@/stores/notification-store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signinScheme } from "../types/signin.schema";
 
 const SignInForm = () => {
 	const {
@@ -14,7 +16,7 @@ const SignInForm = () => {
 		handleSubmit,
 		formState: { errors },
 		getValues,
-	} = useForm<Signin>();
+	} = useForm<Signin>({ resolver: zodResolver(signinScheme) });
 
 	const router = useRouter();
 	const showNotification = useNotificationStore(
@@ -48,17 +50,6 @@ const SignInForm = () => {
 					name={"mobile"}
 					errors={errors}
 					placeholder="شماره موبایل"
-					rules={{
-						required: "شماره موبایل الزامی اسن.",
-						maxLength: {
-							value: 11,
-							message: "شماره موبایل باید 11 رقم باشد",
-						},
-						minLength: {
-							value: 11,
-							message: "شماره موبایل باید 11 رقم باشد",
-						},
-					}}
 				/>
 				<Button
 					type="submit"
