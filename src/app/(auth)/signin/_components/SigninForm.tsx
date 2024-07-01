@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation";
 import { useNotificationStore } from "@/stores/notification-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signinScheme } from "../types/signin.schema";
+import { useFormState } from "react-dom";
+import { signInAction } from "@/actions/auth";
+import { useEffect } from "react";
 
 const SignInForm = () => {
 	const {
@@ -18,10 +21,18 @@ const SignInForm = () => {
 		getValues,
 	} = useForm<Signin>({ resolver: zodResolver(signinScheme) });
 
+	const [formState, action] = useFormState(signInAction, { message: "" });
+
 	const router = useRouter();
 	const showNotification = useNotificationStore(
 		(state) => state.showNotification
 	);
+
+	useEffect(() => {
+		if (formState.message) {
+			showNotification({ message: formState.message, type: "error" });
+		}
+	}, [showNotification, formState]);
 
 	const signin = useSignin({
 		onSuccess: () => {
@@ -31,8 +42,12 @@ const SignInForm = () => {
 	});
 
 	const onSubmit = (data: Signin) => {
-		console.log(data);
-		signin.submit(data);
+		// console.log(data);
+		// signin.submit(data);
+
+		const formData = new FormData();
+		formData.append("mobile", data.mobile);
+		action(formData);
 	};
 
 	return (
