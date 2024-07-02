@@ -21,7 +21,7 @@ const SignInForm = () => {
 		getValues,
 	} = useForm<Signin>({ resolver: zodResolver(signinScheme) });
 
-	const [formState, action] = useFormState(signInAction, { message: "" });
+	const [formState, action] = useFormState(signInAction, null);
 
 	const router = useRouter();
 	const showNotification = useNotificationStore(
@@ -29,22 +29,19 @@ const SignInForm = () => {
 	);
 
 	useEffect(() => {
-		if (formState.message) {
-			showNotification({ message: formState.message, type: "error" });
+		if (formState && !formState.isSuccess && formState.error) {
+			showNotification({
+				message: formState.error.detail!,
+				type: "error",
+			});
+		} else if (formState && formState.isSuccess) {
+			router.push(`/verify?mobile=${getValues("mobile")}`);
+			showNotification({ message: "کد ارسال شد.", type: "info" });
+			console.log(formState.response);
 		}
 	}, [showNotification, formState]);
 
-	const signin = useSignin({
-		onSuccess: () => {
-			router.push(`/verify?mobile=${getValues("mobile")}`);
-			showNotification({ message: "کد ارسال شد.", type: "info" });
-		},
-	});
-
 	const onSubmit = (data: Signin) => {
-		// console.log(data);
-		// signin.submit(data);
-
 		const formData = new FormData();
 		formData.append("mobile", data.mobile);
 		action(formData);
