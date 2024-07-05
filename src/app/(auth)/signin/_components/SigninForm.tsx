@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signinScheme } from "../types/signin.schema";
 import { useFormState } from "react-dom";
 import { signInAction } from "@/actions/auth";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 
 const SignInForm = () => {
 	const {
@@ -22,6 +22,7 @@ const SignInForm = () => {
 	} = useForm<Signin>({ resolver: zodResolver(signinScheme) });
 
 	const [formState, action] = useFormState(signInAction, null);
+	const [isPending, startTransition] = useTransition();
 
 	const router = useRouter();
 	const showNotification = useNotificationStore(
@@ -44,7 +45,10 @@ const SignInForm = () => {
 	const onSubmit = (data: Signin) => {
 		const formData = new FormData();
 		formData.append("mobile", data.mobile);
-		action(formData);
+
+		startTransition(async () => {
+			await action(formData);
+		});
 	};
 
 	return (
@@ -66,7 +70,7 @@ const SignInForm = () => {
 				<Button
 					type="submit"
 					variant="primary"
-					isLoading={signin.isPending}
+					isLoading={isPending}
 				>
 					تایید و دریافت کد
 				</Button>
