@@ -5,7 +5,6 @@ import Textbox from "../../textbox/Textbox";
 const TextInput = <TFormValues extends FieldValues>({
 	name,
 	register,
-	rules,
 	errors,
 	variant,
 	...rest
@@ -16,7 +15,7 @@ const TextInput = <TFormValues extends FieldValues>({
 	return (
 		<>
 			<Textbox
-				{...register(name, rules)}
+				{...register(name)}
 				{...(hasError ? { variant: "error" } : { variant: variant })}
 				{...rest}
 			/>

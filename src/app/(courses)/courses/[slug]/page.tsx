@@ -1,6 +1,4 @@
 import CourseAside from "@/app/(blog)/blog/[slug]/_components/CourseAside";
-import Progress from "@/app/_components/progress/Progress";
-import Rating from "@/app/_components/rating/Rating";
 import Tabs from "@/app/_components/tabs/Tabs";
 import { API_URL } from "@/configs/global";
 import { Accordion } from "@/app/_components/accordian";
