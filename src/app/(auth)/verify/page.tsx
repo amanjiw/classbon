@@ -1,11 +1,14 @@
 import React from "react";
 import VerificationForm from "./_components/VerificationForm";
 
-const Verify = () => {
+const Verify = ({
+	searchParams,
+}: {
+	searchParams: { [key: string]: string | string[] | undefined };
+}) => {
 	return (
 		<div>
-			{" "}
-			<VerificationForm />{" "}
+			<VerificationForm mobile={searchParams["mobile"] as string} />{" "}
 		</div>
 	);
 };
