@@ -7,6 +7,9 @@ import { serverActionWrapper } from "../server-action-wrapper";
 import { createData } from "@/core/http-service/http-service";
 import { Signin } from "@/app/(auth)/signin/types/signin.types";
 import { SendAuthCode } from "@/app/(auth)/verify/_types/verify-user.type";
+import { Problem } from "@/types/http-errors.interface";
+import { signIn, signOut } from "@/auth";
+import { title } from "process";
 
 export const signInAction = async (
 	formState: OperationResult<string> | null,
@@ -34,6 +37,29 @@ export const sendAuthCode = (
 	mobile: string
 ) => {
 	return serverActionWrapper(
-		async () => await createData<SendAuthCode,string>("/send-auth-code", { mobile })
+		async () =>
+			await createData<SendAuthCode, string>("/send-auth-code", {
+				mobile,
+			})
 	);
+};
+
+export const verify = async (
+	state: Problem | undefined,
+	formData: FormData
+) => {
+
+	try {
+		 await signIn("credentials", formData);
+	} catch (error) {
+		//TODO:
+		return {
+			status: 0,
+			title: "",
+		} satisfies Problem;
+	}
+};
+
+export const logout = async () => {
+	await signOut();
 };

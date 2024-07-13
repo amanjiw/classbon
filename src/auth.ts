@@ -3,11 +3,24 @@ import { authConfig } from "./auth.config";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createData } from "./core/http-service/http-service";
 import { VerifyUserModle } from "./app/(auth)/verify/_types/verify-user.type";
-import { User } from "./types/user.interface";
+import { User, UserSession, UserToken } from "./types/user.interface";
+import { API_URL } from "./configs/global";
+import { jwtDecode } from "jwt-decode";
+import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
 	interface User {
 		accessToken: string;
+	}
+
+	interface Session {
+		user: UserSession;
+	}
+}
+
+declare module "next-auth/jwt" {
+	interface JWT {
+		user: UserToken;
 	}
 }
 
@@ -25,21 +38,42 @@ export const {
 				username: { label: "username", type: "text" },
 				code: { label: "code", type: "text" },
 			},
-			async authorize(credentials, request) {
+			async authorize(credentials) {
 				try {
-					const user = await createData<VerifyUserModle, User>("", {
-						code: credentials.code as string,
-						username: credentials.username as string,
-					});
+					const user = await createData<VerifyUserModle, User>(
+						`${API_URL}/verify`,
+						{
+							code: credentials.code as string,
+							username: credentials.username as string,
+						}
+					);
+
+					console.log(user);
 
 					return {
 						accessToken: user.token,
 					};
 				} catch (error: unknown) {
-					console.log(error);
 					throw new Error("");
 				}
 			},
 		}),
 	],
+	callbacks: {
+		async jwt({ token, user }) {
+			if (user) {
+				const decoded = jwtDecode<UserToken>(user.accessToken);
+				token.user = decoded;
+				token.user.accessToken = user.accessToken;
+			}
+
+			return token;
+		},
+		async session({ session, token }) {
+			Object.assign(session.user, token.user ?? {});
+			return session;
+		},
+	},
+
+	secret: process.env.NEXTAUTH_SECRET,
 });
