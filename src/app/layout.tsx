@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Header from "./_components/header/Header";
 import Footer from "./_components/footer/Footer";
 import QueryProvider from "@/providers/react-query-provider";
+import AuthProvider from "@/providers/auth-provider";
 import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "./_components/notification/Notifications";
 
@@ -66,11 +67,13 @@ export default function RootLayout({
 					color="var(--color-primary)"
 				/>
 				<Notifications />
-				<QueryProvider>
-					<Header />
-					<main className="">{children}</main>
-					<Footer />
-				</QueryProvider>
+				<AuthProvider>
+					<QueryProvider>
+						<Header />
+						<main className="">{children}</main>
+						<Footer />
+					</QueryProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

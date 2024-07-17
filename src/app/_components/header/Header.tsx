@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import TopNavigation from "./TopNavigation";
+import HeaderUserSection from "./HeaderUserSection";
 
 const Header: React.FC = () => {
 	return (
@@ -14,7 +15,9 @@ const Header: React.FC = () => {
 					alt="classbon logo"
 				/>
 				<TopNavigation />
-				<div className="mr-auto">auth</div>
+				<div className="mr-auto">
+                    <HeaderUserSection/>
+                </div>
 			</div>
 		</header>
 	);
