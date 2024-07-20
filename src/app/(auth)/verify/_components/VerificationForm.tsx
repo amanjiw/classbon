@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import { VerifyUserModle } from "../_types/verify-user.type";
 import { useFormState } from "react-dom";
 import { sendAuthCode, verify } from "@/actions/auth";
+import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const getTwoMinutesFromNow = () => {
 	const time = new Date();
@@ -25,6 +27,7 @@ const VerificationForm = ({ mobile }: { mobile: string }) => {
 	const [showResendCode, setShowResendCode] = useState<boolean>(false);
 	const authCodeRef = useRef<AuthCodeRef>(null);
 	const timerRef = useRef<TimerRef>(null);
+	const router = useRouter();
 
 	const {
 		handleSubmit,
@@ -49,6 +52,19 @@ const VerificationForm = ({ mobile }: { mobile: string }) => {
 	const username = params.get("mobile")!;
 
 	useEffect(() => {
+		if (verifyState && !verifyState.isSuccess && verifyState.error) {
+			showNotification({
+				message: verifyState?.error.detail!,
+				type: "error",
+			});
+		} else if (verifyState && verifyState.isSuccess) {
+			const fetchSession = async () => await getSession();
+			fetchSession();
+			router.push("/student/courses");
+		}
+	}, []);
+
+	useEffect(() => {
 		if (
 			sendAuthCodeState &&
 			!sendAuthCodeState.isSuccess &&
@@ -71,12 +87,11 @@ const VerificationForm = ({ mobile }: { mobile: string }) => {
 		data.username = username;
 		console.log(data);
 
-		const formData = new FormData();
-		formData.append("username", data.username);
-		formData.append("code", data.code);
-
 		startTranstiton(async () => {
-			 verifyAction(formData);
+			verifyAction({
+				username: data.username,
+				code: data.code,
+			});
 		});
 	};
 
@@ -121,7 +136,12 @@ const VerificationForm = ({ mobile }: { mobile: string }) => {
 				>
 					ارسال مجدد کد تایید
 				</Button>
-				<Button type="submit" variant="primary" isDisabled={!isValid} isLoading={isPending}>
+				<Button
+					type="submit"
+					variant="primary"
+					isDisabled={!isValid}
+					isLoading={isPending}
+				>
 					تایید و ادامه
 				</Button>
 				<div className="flex items-start gap-1 justify-center mt-auto">

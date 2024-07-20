@@ -6,9 +6,12 @@ import { OperationResult } from "@/types/operation-result";
 import { serverActionWrapper } from "../server-action-wrapper";
 import { createData } from "@/core/http-service/http-service";
 import { Signin } from "@/app/(auth)/signin/types/signin.types";
-import { SendAuthCode } from "@/app/(auth)/verify/_types/verify-user.type";
+import {
+	SendAuthCode,
+	VerifyUserModle,
+} from "@/app/(auth)/verify/_types/verify-user.type";
 import { Problem } from "@/types/http-errors.interface";
-import { signIn, signOut } from "@/auth";
+import { AuthorizeError, signIn, signOut } from "@/auth";
 import { title } from "process";
 
 export const signInAction = async (
@@ -45,18 +48,26 @@ export const sendAuthCode = (
 };
 
 export const verify = async (
-	state: Problem | undefined,
-	formData: FormData
+	prevState: OperationResult<void> | undefined,
+	model: VerifyUserModle
 ) => {
-
 	try {
-		 await signIn("credentials", formData);
-	} catch (error) {
-		//TODO:
+		await signIn("credentials", {
+			username: model.username,
+			code: model.code,
+			redirect: false,
+		});
 		return {
-			status: 0,
-			title: "",
-		} satisfies Problem;
+			isSuccess: true,
+		} satisfies OperationResult<void>;
+	} catch (error) {
+		if (error instanceof AuthorizeError) {
+			return {
+				isSuccess: false,
+				error: error.problem!,
+			} satisfies OperationResult<void>;
+		}
+		throw new Error("");
 	}
 };
 
