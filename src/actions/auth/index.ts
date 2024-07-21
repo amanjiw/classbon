@@ -71,6 +71,12 @@ export const verify = async (
 	}
 };
 
-export const logout = async () => {
-	await signOut();
+export const logout = async (prevState: OperationResult<void> | undefined) => {
+	try {
+		await signOut({ redirect: false });
+		return { isSuccess: true } satisfies OperationResult<void>;
+	} catch (error) {
+		//
+		throw new Error("");
+	}
 };
